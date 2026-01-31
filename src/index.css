@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-display antialiased;
+  }
+}
+
+/* Custom checkbox style from Stitch */
+.task-checkbox:checked + p {
+    text-decoration: line-through;
+    color: #94a3b8;
+}
