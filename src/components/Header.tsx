@@ -1,4 +1,8 @@
+import { useNavigate } from 'react-router-dom';
+
 export function Header() {
+    const navigate = useNavigate();
+
     return (
         <div className="flex justify-center py-5">
             <div className="layout-content-container flex flex-col w-full max-w-[960px] flex-1">
@@ -12,7 +16,10 @@ export function Header() {
                         </h2>
                     </div>
                     <div className="flex flex-1 justify-end gap-4 items-center">
-                        <button className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
+                        <button
+                            onClick={() => navigate('/profile')}
+                            className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors"
+                        >
                             <span className="truncate">Profile</span>
                         </button>
                         <div
@@ -25,3 +32,4 @@ export function Header() {
         </div>
     );
 }
+

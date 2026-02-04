@@ -1,9 +1,23 @@
 import { useTaskStore } from '../store/useTaskStore';
 import { TaskItem } from './TaskItem';
 import { TaskInput } from './TaskInput';
+import { SmartSearch } from './SmartSearch';
+
+import { useEffect } from 'react';
+
+import { useShallow } from 'zustand/react/shallow';
 
 export function TaskDashboard() {
-    const tasks = useTaskStore((state) => state.tasks);
+    const { tasks, fetchTasks } = useTaskStore(
+        useShallow((state) => ({
+            tasks: state.tasks,
+            fetchTasks: state.fetchTasks
+        }))
+    );
+
+    useEffect(() => {
+        fetchTasks();
+    }, []);
 
     return (
         <main className="bg-white dark:bg-slate-900 shadow-sm border-x border-b border-slate-200 dark:border-slate-800 rounded-b-xl flex flex-col p-8 md:p-12 mb-10">
@@ -15,6 +29,11 @@ export function TaskDashboard() {
                 <p className="text-slate-500 dark:text-slate-400 text-center mt-2">
                     Manage your daily activities and goals
                 </p>
+            </div>
+
+            {/* Smart Search */}
+            <div className="max-w-[600px] mx-auto w-full">
+                <SmartSearch />
             </div>
 
             {/* Tasks Checklist Area */}
@@ -32,7 +51,10 @@ export function TaskDashboard() {
 
             {/* Generous Spacing before Logout */}
             <div className="mt-32 border-t border-slate-100 dark:border-slate-800 pt-8 flex justify-center">
-                <button className="flex items-center gap-2 text-slate-400 hover:text-red-500 font-medium transition-colors py-2 px-4 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/10">
+                <button
+                    onClick={() => import('../lib/supabase').then(({ supabase }) => supabase.auth.signOut())}
+                    className="flex items-center gap-2 text-slate-400 hover:text-red-500 font-medium transition-colors py-2 px-4 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/10"
+                >
                     <span className="material-symbols-outlined text-xl">logout</span>
                     <span>Logout</span>
                 </button>
