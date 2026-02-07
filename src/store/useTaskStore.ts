@@ -37,7 +37,7 @@ interface TaskStore {
     toggleSubtask: (subtaskId: string, isCompleted: boolean) => Promise<void>;
 }
 
-export const useTaskStore = create<TaskStore>((set, get) => ({
+export const useTaskStore = create<TaskStore>((set) => ({
     tasks: [],
     subtasks: {},
     loading: false,
